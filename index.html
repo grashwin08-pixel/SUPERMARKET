@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CK Selvam Super Market — Madipakkam's most loved multi-storey supermarket. Groceries, household items, toys, stationery & more at up to 12% below MRP. Free parking & home delivery.">
+    <title>CK Selvam Super Market | Madipakkam's #1 Supermarket — Up to 12% Below MRP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ====== DESIGN SYSTEM ====== */
+:root {
+    --primary: #FF3E3E;
+    --primary-light: #FF6B6B;
+    --primary-dark: #CC0000;
+    --primary-glow: rgba(255,62,62,0.4);
+    --secondary: #FF9500;
+    --secondary-light: #FFB74D;
+    --secondary-glow: rgba(255,149,0,0.3);
+    --accent: #00C851;
+    --accent-light: #69F0AE;
+    --accent-glow: rgba(0,200,81,0.3);
+    --gold: #FFD700;
+    --bg-primary: #0D0D0D;
+    --bg-secondary: #111111;
+    --bg-card: #1A1A1A;
+    --bg-glass: rgba(26,26,26,0.7);
+    --bg-glass-hover: rgba(40,40,40,0.8);
+    --text-primary: #FFFFFF;
+    --text-secondary: rgba(255,255,255,0.7);
+    --text-muted: rgba(255,255,255,0.4);
+    --border-glass: rgba(255,255,255,0.08);
+    --border-glow: rgba(255,62,62,0.3);
+    --gradient-primary: linear-gradient(135deg, #FF3E3E, #FF9500);
+    --gradient-hero: linear-gradient(135deg, #1A0000 0%, #2D0A00 50%, #0D0D0D 100%);
+    --gradient-card: linear-gradient(135deg, rgba(255,62,62,0.08), rgba(255,149,0,0.04));
+    --font-primary: 'Outfit', sans-serif;
+    --font-secondary: 'Inter', sans-serif;
+    --transition-fast: 0.2s cubic-bezier(0.4,0,0.2,1);
+    --transition-smooth: 0.4s cubic-bezier(0.4,0,0.2,1);
+    --transition-spring: 0.6s cubic-bezier(0.34,1.56,0.64,1);
+    --shadow-glow: 0 0 40px var(--primary-glow);
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --radius-xl: 32px;
+    --radius-pill: 50px;
+    --container-max: 1200px;
+}
+
+/* ====== RESET ====== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:var(--font-secondary);background:var(--bg-primary);color:var(--text-primary);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit;transition:var(--transition-fast)}
+button{border:none;background:none;cursor:pointer;font-family:inherit}
+::selection{background:rgba(255,62,62,0.3);color:#fff}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--bg-primary)}
+::-webkit-scrollbar-thumb{background:var(--primary-dark);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--primary)}
+
+/* ====== PRELOADER ====== */
+#preloader{position:fixed;inset:0;z-index:10000;background:var(--bg-primary);display:flex;align-items:center;justify-content:center;transition:opacity .6s,visibility .6s}
+#preloader.loaded{opacity:0;visibility:hidden;pointer-events:none}
+.loader-cart{width:80px;height:80px;position:relative;transform-style:preserve-3d;animation:cartSpin 2s ease-in-out infinite;margin-bottom:24px}
+.cart-face{position:absolute;width:80px;height:80px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;border:2px solid var(--primary-light);background:rgba(255,62,62,0.1);border-radius:16px;backdrop-filter:blur(8px)}
+.cart-face.f{transform:translateZ(40px)}.cart-face.b{transform:rotateY(180deg) translateZ(40px)}
+.cart-face.r{transform:rotateY(90deg) translateZ(40px)}.cart-face.l{transform:rotateY(-90deg) translateZ(40px)}
+.cart-face.t{transform:rotateX(90deg) translateZ(40px)}.cart-face.bo{transform:rotateX(-90deg) translateZ(40px)}
+@keyframes cartSpin{0%{transform:rotateX(0) rotateY(0)}25%{transform:rotateX(90deg) rotateY(90deg)}50%{transform:rotateX(180deg) rotateY(180deg)}75%{transform:rotateX(270deg) rotateY(270deg)}100%{transform:rotateX(360deg) rotateY(360deg)}}
+.loader-text{font-family:var(--font-primary);font-size:.9rem;color:var(--text-secondary);letter-spacing:3px;text-transform:uppercase;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* ====== PARTICLES ====== */
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.particle{position:absolute;border-radius:50%;animation:floatUp linear infinite}
+@keyframes floatUp{0%{transform:translateY(100vh) rotate(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-10vh) rotate(720deg);opacity:0}}
+
+/* ====== NAVBAR ====== */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 0;transition:var(--transition-smooth)}
+#navbar.scrolled{padding:8px 0;background:rgba(13,13,13,0.88);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border-glass);box-shadow:0 4px 30px rgba(0,0,0,.4)}
+.nav-c{max-width:var(--container-max);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:12px;z-index:1001}
+.logo-badge{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;background:var(--gradient-primary);border-radius:12px;font-family:var(--font-primary);font-weight:900;font-size:.85rem;color:#fff;box-shadow:0 4px 20px var(--primary-glow);transition:var(--transition-spring)}
+.nav-logo:hover .logo-badge{transform:perspective(500px) rotateY(12deg) scale(1.05)}
+.logo-name{font-family:var(--font-primary);font-weight:700;font-size:1.1rem}
+.logo-name span{background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-link{padding:8px 14px;font-family:var(--font-primary);font-size:.88rem;font-weight:500;color:var(--text-secondary);border-radius:var(--radius-sm);transition:var(--transition-fast);position:relative}
+.nav-link:hover,.nav-link.active{color:#fff}
+.nav-link::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%) scaleX(0);width:18px;height:2px;background:var(--gradient-primary);border-radius:1px;transition:var(--transition-smooth)}
+.nav-link:hover::after,.nav-link.active::after{transform:translateX(-50%) scaleX(1)}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;background:var(--gradient-primary);color:#fff;font-family:var(--font-primary);font-weight:600;font-size:.88rem;border-radius:var(--radius-pill);box-shadow:0 4px 20px var(--primary-glow);transition:var(--transition-smooth)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--primary-glow)}
+.nav-toggle{display:none;flex-direction:column;gap:5px;z-index:1001;padding:6px}
+.nav-toggle span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:var(--transition-smooth)}
+.nav-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.nav-toggle.active span:nth-child(2){opacity:0}
+.nav-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* ====== HERO ====== */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;background:var(--gradient-hero);overflow:hidden;padding:120px 24px 80px}
+.hero-shapes{position:absolute;inset:0;overflow:hidden;z-index:0}
+.hero-shape{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35}
+.hs1{width:500px;height:500px;background:var(--primary);top:-150px;right:-100px;animation:shF 15s ease-in-out infinite}
+.hs2{width:350px;height:350px;background:var(--secondary);bottom:-100px;left:-80px;animation:shF 12s ease-in-out infinite 2s}
+.hs3{width:250px;height:250px;background:var(--accent);top:50%;left:40%;animation:shF 18s ease-in-out infinite 4s}
+@keyframes shF{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-30px) scale(1.1)}66%{transform:translate(-20px,20px) scale(.9)}}
+.hero-emojis{position:absolute;inset:0;z-index:0;pointer-events:none}
+.hero-emoji{position:absolute;font-size:2.5rem;opacity:.15;animation:emojiFloat 20s ease-in-out infinite;transform-style:preserve-3d}
+@keyframes emojiFloat{0%,100%{transform:translateY(0) rotateX(0) rotateY(0)}25%{transform:translateY(-30px) rotateX(15deg) rotateY(90deg)}50%{transform:translateY(0) rotateX(0) rotateY(180deg)}75%{transform:translateY(30px) rotateX(-15deg) rotateY(270deg)}}
+.hero-inner{max-width:var(--container-max);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2;width:100%}
+.hero-content{max-width:560px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(255,62,62,0.1);border:1px solid rgba(255,62,62,0.2);border-radius:var(--radius-pill);font-family:var(--font-primary);font-size:.82rem;font-weight:500;color:var(--gold);backdrop-filter:blur(10px);margin-bottom:28px}
+.hero-title{font-family:var(--font-primary);font-size:clamp(2.4rem,5.5vw,4.2rem);font-weight:900;line-height:1.08;margin-bottom:20px;letter-spacing:-.02em}
+.hero-title .grad{background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.05rem;color:var(--text-secondary);line-height:1.7;margin-bottom:36px;max-width:480px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:0}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 30px;font-family:var(--font-primary);font-weight:600;font-size:.92rem;border-radius:var(--radius-pill);transition:var(--transition-smooth);position:relative;overflow:hidden}
+.btn-p{background:var(--gradient-primary);color:#fff;box-shadow:0 4px 20px var(--primary-glow)}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 8px 40px var(--primary-glow)}
+.btn-s{background:rgba(255,255,255,.05);color:#fff;border:1px solid var(--border-glass);backdrop-filter:blur(10px)}
+.btn-s:hover{border-color:var(--primary-light);transform:translateY(-3px);box-shadow:0 4px 20px rgba(255,62,62,.12)}
+.btn-lg{padding:16px 36px;font-size:1rem}
+
+/* Hero Cards */
+.hero-cards{position:relative;display:flex;flex-direction:column;gap:18px;perspective:1000px}
+.savings-card{padding:20px 28px;background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-lg);backdrop-filter:blur(10px);display:flex;align-items:center;gap:16px;transform:perspective(800px) rotateY(-5deg) rotateX(2deg);transition:var(--transition-spring);animation:cardFloat 6s ease-in-out infinite}
+.savings-card:nth-child(2){animation-delay:.5s;transform:perspective(800px) rotateY(-3deg) rotateX(1deg)}
+.savings-card:nth-child(3){animation-delay:1s;transform:perspective(800px) rotateY(-7deg) rotateX(3deg)}
+.savings-card:nth-child(4){animation-delay:1.5s;transform:perspective(800px) rotateY(-4deg) rotateX(2deg)}
+.savings-card:hover{transform:perspective(800px) rotateY(0) rotateX(0) translateX(-8px);border-color:var(--primary-light);box-shadow:var(--shadow-glow)}
+@keyframes cardFloat{0%,100%{transform:perspective(800px) rotateY(-5deg) translateY(0)}50%{transform:perspective(800px) rotateY(-5deg) translateY(-8px)}}
+.sc-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.sc-icon.red{background:rgba(255,62,62,.15)}.sc-icon.green{background:rgba(0,200,81,.15)}
+.sc-icon.gold{background:rgba(255,215,0,.15)}.sc-icon.blue{background:rgba(0,150,255,.15)}
+.sc-text h4{font-family:var(--font-primary);font-weight:700;font-size:1rem;margin-bottom:2px}
+.sc-text p{font-size:.8rem;color:var(--text-muted)}
+
+/* Hero Metrics Bar */
+.hero-metrics{display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:60px;padding:24px 32px;background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-xl);backdrop-filter:blur(10px);grid-column:1/-1}
+.hm{text-align:center}
+.hm-num{display:flex;align-items:baseline;justify-content:center;white-space:nowrap}
+.hm-val{font-family:var(--font-primary);font-size:1.8rem;font-weight:800;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hm-suf{font-family:var(--font-primary);font-size:1.8rem;font-weight:800;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hm-label{font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.hm-div{width:1px;height:36px;background:var(--border-glass)}
+
+/* ====== MARQUEE ====== */
+.marquee-wrap{background:var(--gradient-primary);padding:12px 0;overflow:hidden;position:relative;z-index:2}
+.marquee-track{display:flex;animation:marquee 30s linear infinite;white-space:nowrap}
+.marquee-item{font-family:var(--font-primary);font-weight:600;font-size:.88rem;color:#fff;padding:0 40px;display:flex;align-items:center;gap:8px;flex-shrink:0}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ====== SECTIONS COMMON ====== */
+section{position:relative;z-index:1}
+.sec-c{max-width:var(--container-max);margin:0 auto;padding:0 24px}
+.sec-header{text-align:center;max-width:650px;margin:0 auto 64px}
+.sec-tag{display:inline-block;padding:6px 18px;background:rgba(255,62,62,0.12);color:var(--primary-light);font-family:var(--font-primary);font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;border-radius:var(--radius-pill);border:1px solid rgba(255,62,62,0.15);margin-bottom:18px}
+.sec-title{font-family:var(--font-primary);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;line-height:1.15;margin-bottom:14px;letter-spacing:-.02em}
+.sec-title .grad{background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sec-desc{font-size:1rem;color:var(--text-secondary);line-height:1.7}
+
+/* ====== CATEGORIES ====== */
+#categories{padding:100px 0;background:var(--bg-primary)}
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.cat-card{padding:32px 20px;background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-lg);text-align:center;cursor:pointer;transition:var(--transition-smooth);position:relative;overflow:hidden}
+.cat-card::before{content:'';position:absolute;inset:0;background:var(--gradient-card);opacity:0;transition:var(--transition-smooth)}
+.cat-card:hover{border-color:var(--primary-light);transform:translateY(-6px);box-shadow:0 12px 40px var(--primary-glow)}
+.cat-card:hover::before{opacity:1}
+.cat-icon{font-size:2.8rem;margin-bottom:14px;display:block;transition:var(--transition-spring);position:relative;z-index:1}
+.cat-card:hover .cat-icon{transform:scale(1.2)}
+.cat-name{font-family:var(--font-primary);font-weight:600;font-size:.92rem;position:relative;z-index:1}
+
+/* ====== FLOOR GUIDE ====== */
+#floors{padding:100px 0;background:var(--bg-secondary)}
+.floor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.floor-card{padding:40px 24px;background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-xl);text-align:center;transition:var(--transition-smooth);position:relative;overflow:hidden}
+.floor-card:hover{border-color:var(--primary-light);transform:translateY(-8px);box-shadow:var(--shadow-glow)}
+.floor-num{font-family:var(--font-primary);font-size:5rem;font-weight:900;line-height:1;background:linear-gradient(135deg,rgba(255,62,62,.2),rgba(255,149,0,.08));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px}
+.floor-label{font-family:var(--font-primary);font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--primary-light);margin-bottom:16px}
+.floor-title{font-family:var(--font-primary);font-size:1.1rem;font-weight:700;margin-bottom:12px}
+.floor-items{list-style:none;font-size:.85rem;color:var(--text-secondary);line-height:2}
+.floor-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(0,200,81,.1);color:var(--accent-light);font-size:.72rem;font-weight:600;border-radius:var(--radius-pill);border:1px solid rgba(0,200,81,.15);margin-top:16px}
+
+/* ====== OFFERS / USP ====== */
+#offers{padding:100px 0;background:var(--bg-primary)}
+.offers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.offer-card{padding:44px 32px;background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-xl);text-align:center;transition:var(--transition-smooth);position:relative;overflow:hidden}
+.offer-card:hover{border-color:var(--primary-light);transform:translateY(-8px);box-shadow:var(--shadow-glow)}
+.offer-icon{font-size:3rem;margin-bottom:20px;display:block}
+.offer-val{font-family:var(--font-primary);font-size:3rem;font-weight:900;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.offer-title{font-family:var(--font-primary);font-size:1.2rem;font-weight:700;margin-bottom:12px}
+.offer-desc{font-size:.9rem;color:var(--text-secondary);line-height:1.7}
+.offer-bar{width:100%;height:4px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:24px;overflow:hidden}
+.offer-bar-fill{height:100%;background:var(--gradient-primary);border-radius:2px;width:0;transition:width 1.5s cubic-bezier(.4,0,.2,1)}
+.offer-bar-fill.animated{width:var(--fw)}
+
+/* ====== PAYMENT BANNER ====== */
+.payment-banner{margin:0 auto;max-width:var(--container-max);padding:0 24px}
+.pay-inner{padding:28px 36px;background:var(--bg-card);border:2px solid rgba(255,149,0,.2);border-radius:var(--radius-xl);display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;position:relative;overflow:hidden;animation:borderGlow 3s ease-in-out infinite}
+@keyframes borderGlow{0%,100%{border-color:rgba(255,149,0,.2)}50%{border-color:rgba(255,149,0,.5)}}
+.pay-accepted{font-family:var(--font-primary);font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:10px}
+.pay-warn{display:flex;align-items:center;gap:8px;font-size:.88rem;color:var(--secondary-light);background:rgba(255,149,0,.08);padding:8px 20px;border-radius:var(--radius-pill);border:1px solid rgba(255,149,0,.15)}
+
+/* ====== TESTIMONIALS ====== */
+#testimonials{padding:100px 0;background:var(--bg-secondary);overflow:hidden}
+.test-wrap{position:relative;overflow:hidden}
+.test-track{display:flex;gap:28px;transition:transform .6s cubic-bezier(.4,0,.2,1)}
+.test-card{min-width:calc(33.333% - 19px);padding:36px;background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-lg);backdrop-filter:blur(10px);transition:var(--transition-smooth)}
+.test-card:hover{border-color:var(--primary-light);transform:translateY(-8px);box-shadow:var(--shadow-glow)}
+.test-stars{color:var(--gold);font-size:1.1rem;letter-spacing:3px;margin-bottom:18px}
+.test-text{font-size:.92rem;line-height:1.8;color:var(--text-secondary);margin-bottom:24px;font-style:italic;min-height:100px}
+.test-author{display:flex;align-items:center;gap:14px}
+.test-avatar{width:44px;height:44px;border-radius:50%;background:var(--gradient-primary);display:flex;align-items:center;justify-content:center;font-family:var(--font-primary);font-weight:700;font-size:.82rem;color:#fff;flex-shrink:0}
+.test-name{font-family:var(--font-primary);font-weight:600;font-size:.92rem}
+.test-role{font-size:.75rem;color:var(--text-muted)}
+.test-controls{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:44px}
+.test-btn{width:46px;height:46px;border-radius:50%;border:1px solid var(--border-glass);background:var(--bg-card);color:#fff;display:flex;align-items:center;justify-content:center;transition:var(--transition-smooth)}
+.test-btn:hover{background:var(--primary);border-color:var(--primary);box-shadow:0 4px 20px var(--primary-glow)}
+.test-dots{display:flex;gap:8px}
+.test-dot{width:10px;height:10px;border-radius:50%;background:var(--border-glass);cursor:pointer;transition:var(--transition-smooth)}
+.test-dot.active{background:var(--primary);width:28px;border-radius:5px;box-shadow:0 0 15px var(--primary-glow)}
+
+/* ====== STATS ====== */
+#stats{padding:100px 0;background:linear-gradient(135deg,#1A0505,#0D0D0D 50%,#0D1A0D);overflow:hidden;position:relative}
+.stats-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,62,62,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,62,62,.04) 1px,transparent 1px);background-size:60px 60px;animation:gridSlide 20s linear infinite}
+@keyframes gridSlide{0%{transform:perspective(500px) rotateX(60deg) translateY(0)}100%{transform:perspective(500px) rotateX(60deg) translateY(60px)}}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;position:relative;z-index:1}
+.stat-card{text-align:center;padding:36px 20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-lg);backdrop-filter:blur(10px);transition:var(--transition-smooth)}
+.stat-card:hover{transform:translateY(-8px);border-color:var(--primary-light);box-shadow:var(--shadow-glow)}
+.stat-icon{font-size:2.2rem;margin-bottom:16px}
+.stat-val{font-family:var(--font-primary);font-size:2.6rem;font-weight:800;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px;display:flex;align-items:baseline;justify-content:center;white-space:nowrap}
+.stat-label{font-size:.85rem;color:var(--text-secondary);margin-bottom:18px}
+.stat-bar{width:100%;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.stat-bar-fill{height:100%;background:var(--gradient-primary);border-radius:2px;width:0;transition:width 1.5s cubic-bezier(.4,0,.2,1)}
+.stat-bar-fill.animated{width:var(--fw)}
+
+/* ====== CTA ====== */
+#cta{padding:100px 0;background:linear-gradient(135deg,#2D0A00,#1A0000);position:relative;overflow:hidden}
+.cta-orbs{position:absolute;inset:0;overflow:hidden}
+.cta-orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.25}
+.cta-o1{width:400px;height:400px;background:var(--primary);top:-200px;left:-100px;animation:orbF 10s ease-in-out infinite}
+.cta-o2{width:300px;height:300px;background:var(--secondary);bottom:-150px;right:-50px;animation:orbF 12s ease-in-out infinite 2s}
+@keyframes orbF{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-30px) scale(1.2)}}
+.cta-content{text-align:center;position:relative;z-index:1}
+.cta-title{font-family:var(--font-primary);font-size:clamp(2rem,4vw,3rem);font-weight:800;margin-bottom:18px}
+.cta-sub{font-size:1.05rem;color:var(--text-secondary);max-width:500px;margin:0 auto 36px;line-height:1.7}
+.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* ====== CONTACT ====== */
+#contact{padding:100px 0;background:var(--bg-primary)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:18px}
+.contact-card{display:flex;gap:18px;padding:24px;background:var(--bg-card);border:1px solid var(--border-glass);border-radius:var(--radius-lg);transition:var(--transition-smooth)}
+.contact-card:hover{border-color:var(--primary-light);transform:translateX(8px);box-shadow:-4px 0 20px var(--primary-glow)}
+.cc-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:rgba(255,62,62,.12);border-radius:14px;font-size:1.4rem;flex-shrink:0}
+.cc-content h3{font-family:var(--font-primary);font-weight:700;font-size:.95rem;margin-bottom:4px}
+.cc-content p{color:var(--text-secondary);font-size:.88rem;line-height:1.6}
+.cc-content a{color:var(--primary-light)}
+.cc-content a:hover{color:var(--secondary)}
+.map-wrap{width:100%;height:360px;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border-glass)}
+.map-wrap iframe{width:100%;height:100%;border:none;filter:invert(.9) hue-rotate(180deg) brightness(1.2) contrast(1);border-radius:var(--radius-lg)}
+.map-btn{margin-top:18px;width:100%;justify-content:center}
+
+/* ====== FOOTER ====== */
+#footer{position:relative;padding:72px 0 0;background:var(--bg-secondary);overflow:hidden}
+.footer-glow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:80%;height:1px;background:var(--gradient-primary);box-shadow:0 0 40px var(--primary-glow),0 0 80px var(--primary-glow)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;padding-bottom:56px}
+.footer-brand .fb-logo{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.footer-brand .fb-logo .logo-badge{width:40px;height:40px;font-size:.78rem}
+.footer-brand .fb-logo .logo-name{font-size:1.05rem}
+.footer-tagline{color:var(--text-secondary);font-size:.88rem;line-height:1.7;margin-bottom:18px}
+.footer-stars{display:flex;align-items:center;gap:10px;font-size:.82rem;color:var(--text-muted)}
+.footer-stars span:first-child{color:var(--gold);letter-spacing:2px}
+.footer-col h4{font-family:var(--font-primary);font-weight:700;font-size:.95rem;margin-bottom:18px}
+.footer-col a{display:block;color:var(--text-secondary);font-size:.88rem;padding:5px 0;transition:var(--transition-fast)}
+.footer-col a:hover{color:var(--primary-light);transform:translateX(5px)}
+.footer-bottom{border-top:1px solid var(--border-glass);padding:22px 0;display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{font-size:.82rem;color:var(--text-muted)}
+
+/* ====== WHATSAPP ====== */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:999;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:var(--transition-smooth);animation:waPulse 2s ease-in-out infinite,waBounce .6s ease 2.5s both}
+.wa-float:hover{transform:scale(1.1) translateY(-4px);box-shadow:0 8px 30px rgba(37,211,102,.5)}
+.wa-float svg{width:30px;height:30px;fill:#fff}
+.wa-tip{position:absolute;right:68px;background:rgba(13,13,13,.92);color:#fff;padding:8px 16px;border-radius:8px;font-family:var(--font-primary);font-size:.82rem;font-weight:500;white-space:nowrap;opacity:0;visibility:hidden;transform:translateX(10px);transition:var(--transition-smooth);border:1px solid var(--border-glass);pointer-events:none}
+.wa-tip::after{content:'';position:absolute;right:-6px;top:50%;transform:translateY(-50%);border-left:6px solid rgba(13,13,13,.92);border-top:6px solid transparent;border-bottom:6px solid transparent}
+.wa-float:hover .wa-tip{opacity:1;visibility:visible;transform:translateX(0)}
+@keyframes waPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.4),0 0 0 0 rgba(37,211,102,.3)}50%{box-shadow:0 4px 20px rgba(37,211,102,.4),0 0 0 12px rgba(37,211,102,0)}}
+@keyframes waBounce{0%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.1)}70%{transform:scale(.9)}100%{opacity:1;transform:scale(1)}}
+
+/* ====== ANIMATIONS ====== */
+.anim{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}
+.anim.vis{opacity:1;transform:translateY(0)}
+.anim:nth-child(2){transition-delay:.1s}.anim:nth-child(3){transition-delay:.2s}.anim:nth-child(4){transition-delay:.3s}
+
+/* ====== RESPONSIVE ====== */
+@media(max-width:1024px){
+    .hero-inner{grid-template-columns:1fr;text-align:center}
+    .hero-content{max-width:100%}.hero-sub{margin-left:auto;margin-right:auto}
+    .hero-btns{justify-content:center}.hero-cards{display:none}
+    .cat-grid{grid-template-columns:repeat(3,1fr)}
+    .floor-grid{grid-template-columns:repeat(2,1fr)}
+    .offers-grid{grid-template-columns:1fr}
+    .stats-row{grid-template-columns:repeat(2,1fr)}
+    .test-card{min-width:calc(50% - 14px)}
+    .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+    .nav-links{position:fixed;top:0;right:-100%;width:75%;max-width:320px;height:100vh;background:rgba(13,13,13,.98);backdrop-filter:blur(20px);flex-direction:column;justify-content:center;gap:8px;padding:80px 32px;transition:right .4s cubic-bezier(.4,0,.2,1);border-left:1px solid var(--border-glass);z-index:1000}
+    .nav-links.open{right:0}.nav-link{font-size:1.1rem;padding:12px 16px}.nav-cta{display:none}.nav-toggle{display:flex}
+    .cat-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+    .floor-grid{grid-template-columns:1fr}
+    .stats-row{grid-template-columns:1fr 1fr}
+    .contact-grid{grid-template-columns:1fr}
+    .test-card{min-width:100%}
+    .footer-grid{grid-template-columns:1fr;gap:28px}
+    .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+    .hero-metrics{gap:20px;flex-direction:row}
+    .pay-inner{padding:20px 24px}
+}
+@media(max-width:480px){
+    .hero-btns,.cta-btns{flex-direction:column;align-items:center}
+    .btn{width:100%;justify-content:center}
+    .stats-row{grid-template-columns:1fr}
+    .hero-metrics{flex-wrap:wrap}
+    .hm-div{width:40px;height:1px}
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+    <div style="text-align:center">
+        <div class="loader-cart">
+            <div class="cart-face f">🛒</div><div class="cart-face b">🛒</div>
+            <div class="cart-face r">🛒</div><div class="cart-face l">🛒</div>
+            <div class="cart-face t">🛒</div><div class="cart-face bo">🛒</div>
+        </div>
+        <p class="loader-text">Loading Fresh Deals...</p>
+    </div>
+</div>
+
+<!-- PARTICLES -->
+<div id="particles"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+    <div class="nav-c">
+        <a href="#hero" class="nav-logo">
+            <span class="logo-badge">CKS</span>
+            <span class="logo-name"><span>CK Selvam</span> Super Market</span>
+        </a>
+        <div class="nav-links" id="navLinks">
+            <a href="#hero" class="nav-link active" data-s="hero">Home</a>
+            <a href="#categories" class="nav-link" data-s="categories">Categories</a>
+            <a href="#floors" class="nav-link" data-s="floors">Floors</a>
+            <a href="#offers" class="nav-link" data-s="offers">Offers</a>
+            <a href="#testimonials" class="nav-link" data-s="testimonials">Reviews</a>
+            <a href="#contact" class="nav-link" data-s="contact">Contact</a>
+        </div>
+        <a href="tel:+916369109509" class="nav-cta">📞 Call Now</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-shapes">
+        <div class="hero-shape hs1"></div><div class="hero-shape hs2"></div><div class="hero-shape hs3"></div>
+    </div>
+    <div class="hero-emojis" id="heroEmojis"></div>
+    <div class="hero-inner">
+        <div class="hero-content anim">
+            <div class="hero-badge">★ 4.0 · 2,046 Reviews · Madipakkam's #1 Store</div>
+            <h1 class="hero-title">Everything Your<br>Home Needs<br><span class="grad">Under One Roof</span></h1>
+            <p class="hero-sub">3 floors of groceries, household goods, toys, stationery and more — priced up to 12% below MRP. Free parking. Free delivery above ₹1,500.</p>
+            <div class="hero-btns">
+                <a href="#categories" class="btn btn-p">🛒 Shop Categories</a>
+                <a href="https://www.google.com/maps/dir//CK+Selvam+Super+Market+Madipakkam+Chennai" target="_blank" rel="noopener" class="btn btn-s">📍 Get Directions</a>
+            </div>
+        </div>
+        <div class="hero-cards anim">
+            <div class="savings-card"><div class="sc-icon red">🏷️</div><div class="sc-text"><h4>Up to 12% Off MRP</h4><p>On most products across all floors</p></div></div>
+            <div class="savings-card"><div class="sc-icon green">🚚</div><div class="sc-text"><h4>Free Delivery ₹1,500+</h4><p>To nearby areas in Madipakkam</p></div></div>
+            <div class="savings-card"><div class="sc-icon gold">⭐</div><div class="sc-text"><h4>4.0★ Google Rated</h4><p>Trusted by thousands of families</p></div></div>
+            <div class="savings-card"><div class="sc-icon blue">👨‍👩‍👧‍👦</div><div class="sc-text"><h4>2,046+ Happy Customers</h4><p>Madipakkam's favourite store</p></div></div>
+        </div>
+        <div class="hero-metrics anim">
+            <div class="hm"><div class="hm-num"><span class="hm-val" data-c="2046">0</span><span class="hm-suf">+</span></div><span class="hm-label">Reviews</span></div>
+            <div class="hm-div"></div>
+            <div class="hm"><div class="hm-num"><span class="hm-val" data-c="4">0</span><span class="hm-suf">.0★</span></div><span class="hm-label">Rating</span></div>
+            <div class="hm-div"></div>
+            <div class="hm"><div class="hm-num"><span class="hm-val" data-c="3">0</span><span class="hm-suf"> Floors</span></div><span class="hm-label">+ Ground</span></div>
+            <div class="hm-div"></div>
+            <div class="hm"><div class="hm-num"><span class="hm-val" data-c="12">0</span><span class="hm-suf">%</span></div><span class="hm-label">Below MRP</span></div>
+            <div class="hm-div"></div>
+            <div class="hm"><div class="hm-num"><span class="hm-val">Free</span></div><span class="hm-label">Parking</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+    <div class="marquee-track" id="marqueeTrack">
+        <span class="marquee-item">🚚 Free Delivery above ₹1,500</span>
+        <span class="marquee-item">💳 Cash & Card Accepted</span>
+        <span class="marquee-item">🎁 Free Gift Wrapping</span>
+        <span class="marquee-item">🅿️ Free Parking Available</span>
+        <span class="marquee-item">🏷️ Up to 12% Below MRP</span>
+        <span class="marquee-item">🧾 Sodexo Vouchers Accepted</span>
+        <span class="marquee-item">⚠️ UPI/GPay Not Available — Carry Cash or Card</span>
+        <span class="marquee-item">🚚 Free Delivery above ₹1,500</span>
+        <span class="marquee-item">💳 Cash & Card Accepted</span>
+        <span class="marquee-item">🎁 Free Gift Wrapping</span>
+        <span class="marquee-item">🅿️ Free Parking Available</span>
+        <span class="marquee-item">🏷️ Up to 12% Below MRP</span>
+        <span class="marquee-item">🧾 Sodexo Vouchers Accepted</span>
+        <span class="marquee-item">⚠️ UPI/GPay Not Available — Carry Cash or Card</span>
+    </div>
+</div>
+
+<!-- CATEGORIES -->
+<section id="categories">
+    <div class="sec-c">
+        <div class="sec-header anim">
+            <span class="sec-tag">What We Offer</span>
+            <h2 class="sec-title">Shop by <span class="grad">Category</span></h2>
+            <p class="sec-desc">Everything from daily essentials to home goods, spread across 3 floors — all at below-MRP prices.</p>
+        </div>
+        <div class="cat-grid">
+            <div class="cat-card anim"><span class="cat-icon">🛒</span><span class="cat-name">Groceries & Provisions</span></div>
+            <div class="cat-card anim"><span class="cat-icon">🍚</span><span class="cat-name">Pulses & Dal</span></div>
+            <div class="cat-card anim"><span class="cat-icon">🫙</span><span class="cat-name">Packaged Foods</span></div>
+            <div class="cat-card anim"><span class="cat-icon">🧴</span><span class="cat-name">Toiletries & Cosmetics</span></div>
+            <div class="cat-card anim"><span class="cat-icon">🧸</span><span class="cat-name">Toys & Gifts</span></div>
+            <div class="cat-card anim"><span class="cat-icon">🖊️</span><span class="cat-name">Stationery</span></div>
+            <div class="cat-card anim"><span class="cat-icon">🥘</span><span class="cat-name">Kitchen Utensils</span></div>
+            <div class="cat-card anim"><span class="cat-icon">🔩</span><span class="cat-name">Plastics & Steel</span></div>
+            <div class="cat-card anim"><span class="cat-icon">🧹</span><span class="cat-name">Cleaning Supplies</span></div>
+            <div class="cat-card anim"><span class="cat-icon">💄</span><span class="cat-name">Cosmetics</span></div>
+            <div class="cat-card anim"><span class="cat-icon">📦</span><span class="cat-name">Fancy & Gift Items</span></div>
+            <div class="cat-card anim"><span class="cat-icon">🧺</span><span class="cat-name">Household Needs</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- FLOOR GUIDE -->
+<section id="floors">
+    <div class="sec-c">
+        <div class="sec-header anim">
+            <span class="sec-tag">Navigate the Store</span>
+            <h2 class="sec-title">What's on <span class="grad">Each Floor</span></h2>
+            <p class="sec-desc">CK Selvam spans 4 levels of shopping — find exactly what you need.</p>
+        </div>
+        <div class="floor-grid">
+            <div class="floor-card anim">
+                <div class="floor-num">G</div>
+                <div class="floor-label">Ground Floor</div>
+                <div class="floor-title">🛒 Groceries & Billing</div>
+                <ul class="floor-items"><li>Groceries & Provisions</li><li>Billing Counters</li><li>Fresh Packaged Foods</li><li>Pulses & Dal</li></ul>
+                <span class="floor-badge">🛗 Lift Available</span>
+            </div>
+            <div class="floor-card anim">
+                <div class="floor-num">1</div>
+                <div class="floor-label">First Floor</div>
+                <div class="floor-title">🧸 Toys, Gifts & Stationery</div>
+                <ul class="floor-items"><li>Toys & Gift Items</li><li>Fancy Products</li><li>Stationery & Books</li><li>General Merchandise</li></ul>
+                <span class="floor-badge">🛗 Lift Available</span>
+            </div>
+            <div class="floor-card anim">
+                <div class="floor-num">2</div>
+                <div class="floor-label">Second Floor</div>
+                <div class="floor-title">🥘 Kitchen & Appliances</div>
+                <ul class="floor-items"><li>Plastics & Steel Items</li><li>Kitchen Utensils</li><li>Kitchen Appliances</li><li>Cleaning Tools</li></ul>
+                <span class="floor-badge">🛗 Lift Available</span>
+            </div>
+            <div class="floor-card anim">
+                <div class="floor-num">3</div>
+                <div class="floor-label">Third Floor</div>
+                <div class="floor-title">🏠 Household & More</div>
+                <ul class="floor-items"><li>Household Items</li><li>Home Essentials</li><li>Miscellaneous</li><li>Bulk Items</li></ul>
+                <span class="floor-badge">🛗 Lift Available</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- OFFERS -->
+<section id="offers">
+    <div class="sec-c">
+        <div class="sec-header anim">
+            <span class="sec-tag">Why Shop With Us</span>
+            <h2 class="sec-title">The CK Selvam <span class="grad">Advantage</span></h2>
+            <p class="sec-desc">Why thousands of Madipakkam families choose us every month.</p>
+        </div>
+        <div class="offers-grid">
+            <div class="offer-card anim">
+                <span class="offer-icon">🏷️</span>
+                <div class="offer-val"><span data-c="12">0</span>%</div>
+                <h3 class="offer-title">Below MRP Pricing</h3>
+                <p class="offer-desc">Consistently priced lower than DMart and other leading supermarkets in Madipakkam. Save ₹1,000+ on monthly grocery runs.</p>
+                <div class="offer-bar"><div class="offer-bar-fill" style="--fw:92%"></div></div>
+            </div>
+            <div class="offer-card anim">
+                <span class="offer-icon">🚚</span>
+                <div class="offer-val">₹<span data-c="1500">0</span>+</div>
+                <h3 class="offer-title">Free Home Delivery</h3>
+                <p class="offer-desc">Order above ₹1,500 and get free delivery to your doorstep. Just share your list and we handle the rest.</p>
+                <div class="offer-bar"><div class="offer-bar-fill" style="--fw:85%"></div></div>
+            </div>
+            <div class="offer-card anim">
+                <span class="offer-icon">🅿️</span>
+                <div class="offer-val">Free</div>
+                <h3 class="offer-title">Dedicated Parking</h3>
+                <p class="offer-desc">Spacious free parking for both cars and bikes in the adjacent plot. No parking stress — just stress-free shopping.</p>
+                <div class="offer-bar"><div class="offer-bar-fill" style="--fw:100%"></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PAYMENT BANNER -->
+<div style="padding:40px 0">
+    <div class="payment-banner">
+        <div class="pay-inner anim">
+            <div class="pay-accepted">💳 We Accept: Cash · Debit/Credit Cards · Sodexo Vouchers</div>
+            <div class="pay-warn">⚠️ UPI, Google Pay & PhonePe are currently NOT accepted. Please carry cash or card.</div>
+        </div>
+    </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+    <div class="sec-c">
+        <div class="sec-header anim">
+            <span class="sec-tag">Customer Stories</span>
+            <h2 class="sec-title">What Madipakkam <span class="grad">Says</span></h2>
+            <p class="sec-desc">Real reviews from real shoppers who trust CK Selvam for their daily needs.</p>
+        </div>
+        <div class="test-wrap">
+            <div class="test-track" id="testTrack">
+                <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-text">"Multi storied supermarket. Very good for general grocery shopping and other home needs. They have multiple floors with various different sections. General groceries are good."</p><div class="test-author"><div class="test-avatar">RS</div><div><span class="test-name">Raj S</span><br><span class="test-role">Local Guide</span></div></div></div>
+                <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-text">"A all-in-one departmental store at Madipakkam. You can get hook to all leading house holds in a reasonable price. Loved a lot this place. Strongly recommend this store."</p><div class="test-author"><div class="test-avatar">SM</div><div><span class="test-name">Saravanan M S</span><br><span class="test-role">Local Guide</span></div></div></div>
+                <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-text">"Prices of the groceries are way too less compared to other flashy shops. Many items are 10% less than MRP. Strongly recommend for budget shopping."</p><div class="test-author"><div class="test-avatar">AR</div><div><span class="test-name">Aruna Ravindran</span><br><span class="test-role">Verified Shopper</span></div></div></div>
+                <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-text">"No frills, reasonable rates, quick service. Most of the rates are less than MRP. Free parking lot for bike/car. All grocery products and stationery very reasonably priced."</p><div class="test-author"><div class="test-avatar">BV</div><div><span class="test-name">Balajee VS</span><br><span class="test-role">Local Guide</span></div></div></div>
+                <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-text">"The one place you can get everything from toothpaste to hair clips to toys to books — everything at the best price. Being a regular customer I can confirm this!"</p><div class="test-author"><div class="test-avatar">KI</div><div><span class="test-name">Karthika Indhuja</span><br><span class="test-role">Local Guide</span></div></div></div>
+                <div class="test-card"><div class="test-stars">★★★★☆</div><p class="test-text">"Mini Saravana Store, except clothes. Around 12% lesser than MRP. Some items are cheaper than DMart. Located in Bazaar Road, Madipakkam."</p><div class="test-author"><div class="test-avatar">KS</div><div><span class="test-name">Kps Somasundaram</span><br><span class="test-role">Local Guide</span></div></div></div>
+            </div>
+            <div class="test-controls">
+                <button class="test-btn" id="prevBtn" aria-label="Previous"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+                <div class="test-dots" id="testDots"></div>
+                <button class="test-btn" id="nextBtn" aria-label="Next"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+    <div class="stats-grid-bg"></div>
+    <div class="sec-c">
+        <div class="sec-header anim"><span class="sec-tag">Our Impact</span><h2 class="sec-title">Numbers That <span class="grad">Matter</span></h2></div>
+        <div class="stats-row">
+            <div class="stat-card anim"><div class="stat-icon">⭐</div><div class="stat-val"><span data-c="4">0</span>.0★</div><div class="stat-label">Google Rating</div><div class="stat-bar"><div class="stat-bar-fill" style="--fw:80%"></div></div></div>
+            <div class="stat-card anim"><div class="stat-icon">👨‍👩‍👧</div><div class="stat-val"><span data-c="2046">0</span>+</div><div class="stat-label">Google Reviews</div><div class="stat-bar"><div class="stat-bar-fill" style="--fw:95%"></div></div></div>
+            <div class="stat-card anim"><div class="stat-icon">🏬</div><div class="stat-val"><span data-c="3">0</span>+G</div><div class="stat-label">Shopping Floors</div><div class="stat-bar"><div class="stat-bar-fill" style="--fw:75%"></div></div></div>
+            <div class="stat-card anim"><div class="stat-icon">🏷️</div><div class="stat-val"><span data-c="12">0</span>%</div><div class="stat-label">Below MRP</div><div class="stat-bar"><div class="stat-bar-fill" style="--fw:92%"></div></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+    <div class="cta-orbs"><div class="cta-orb cta-o1"></div><div class="cta-orb cta-o2"></div></div>
+    <div class="sec-c">
+        <div class="cta-content anim">
+            <h2 class="cta-title">Ready to <span class="grad">Shop Smart?</span></h2>
+            <p class="cta-sub">Visit us at Bazaar Road, Madipakkam or call ahead to place your list for home delivery.</p>
+            <div class="cta-btns">
+                <a href="tel:+916369109509" class="btn btn-p btn-lg">📞 Call Now</a>
+                <a href="https://www.google.com/maps/dir//CK+Selvam+Super+Market+Madipakkam+Chennai" target="_blank" rel="noopener" class="btn btn-s btn-lg">🗺️ Get Directions</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <div class="sec-c">
+        <div class="sec-header anim"><span class="sec-tag">Find Us</span><h2 class="sec-title">Visit <span class="grad">CK Selvam</span></h2><p class="sec-desc">Located in the heart of Madipakkam — just look for the multi-storey building on Bazaar Road.</p></div>
+        <div class="contact-grid">
+            <div class="contact-info anim">
+                <div class="contact-card"><div class="cc-icon">📍</div><div class="cc-content"><h3>Our Location</h3><p>Bazaar Road / Ram Nagar, Madipakkam, Chennai, Tamil Nadu</p></div></div>
+                <div class="contact-card"><div class="cc-icon">📞</div><div class="cc-content"><h3>Phone</h3><p><a href="tel:+916369109509">+91 63691 09509</a></p></div></div>
+                <div class="contact-card"><div class="cc-icon">🕘</div><div class="cc-content"><h3>Store Hours</h3><p>Open Daily: 9:00 AM – 9:00 PM<br><small style="color:var(--text-muted)">Shutter closes at 9 PM · No new entries after</small></p></div></div>
+                <div class="contact-card"><div class="cc-icon">⭐</div><div class="cc-content"><h3>Google Rating</h3><p>4.0 ★★★★☆ (2,046 Reviews)</p></div></div>
+            </div>
+            <div class="anim">
+                <div class="map-wrap"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888!2d80.2!3d12.96!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sCK+Selvam+Super+Market!5e0!3m2!1sen!2sin!4v1699000000000" width="100%" height="100%" allowfullscreen loading="lazy" title="CK Selvam Super Market Location"></iframe></div>
+                <a href="https://www.google.com/maps/dir//CK+Selvam+Super+Market+Madipakkam+Chennai" target="_blank" rel="noopener" class="btn btn-p map-btn">🗺️ Get Directions</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+    <div class="footer-glow"></div>
+    <div class="sec-c">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="fb-logo"><span class="logo-badge">CKS</span><span class="logo-name"><span>CK Selvam</span> Super Market</span></div>
+                <p class="footer-tagline">Madipakkam's most loved store since decades. Everything your home needs — under one roof, below MRP.</p>
+                <div class="footer-stars"><span>★★★★☆</span><span>4.0 on Google (2,046 Reviews)</span></div>
+            </div>
+            <div class="footer-col"><h4>Quick Links</h4><a href="#hero">Home</a><a href="#categories">Categories</a><a href="#floors">Floor Guide</a><a href="#offers">Why Choose Us</a><a href="#testimonials">Reviews</a><a href="#contact">Contact</a></div>
+            <div class="footer-col"><h4>Top Categories</h4><a href="#categories">Groceries</a><a href="#categories">Toiletries</a><a href="#categories">Toys & Gifts</a><a href="#categories">Kitchen Utensils</a><a href="#categories">Stationery</a><a href="#categories">Household</a></div>
+            <div class="footer-col"><h4>Contact</h4><a href="tel:+916369109509">📞 +91 63691 09509</a><a href="https://www.google.com/maps/dir//CK+Selvam+Super+Market+Madipakkam+Chennai" target="_blank" rel="noopener">📍 Madipakkam, Chennai</a><a href="#contact">🕘 9 AM – 9 PM Daily</a><a>💳 Cash & Card Only</a></div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CK Selvam Super Market. All rights reserved.</p>
+            <p>Supermarket in Madipakkam, Chennai</p>
+        </div>
+    </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/916369109509?text=Hi%2C%20I%20want%20to%20know%20about%20CK%20Selvam%20Super%20Market%20products%20and%20delivery." target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 32 32"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.128 6.744 3.046 9.378L1.053 31.372l6.2-1.964A15.89 15.89 0 0016.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.335 22.594c-.39 1.1-1.932 2.014-3.174 2.28-.852.18-1.962.324-5.702-1.226-4.786-1.984-7.862-6.834-8.1-7.15-.228-.316-1.916-2.55-1.916-4.864 0-2.314 1.214-3.452 1.644-3.924.39-.428 1.028-.624 1.64-.624.198 0 .376.01.536.018.47.02.706.048 1.016.788.39.926 1.338 3.264 1.456 3.502.12.238.238.554.078.87-.15.326-.278.47-.516.742-.238.272-.464.48-.702.772-.218.258-.462.534-.196 1.004.266.46 1.184 1.95 2.542 3.16 1.746 1.554 3.218 2.036 3.676 2.264.358.178.784.148 1.06-.148.352-.376.786-.998 1.228-1.612.314-.44.712-.496 1.11-.336.404.148 2.554 1.204 2.994 1.424.44.218.732.33.842.508.108.18.108 1.03-.282 2.13z"/></svg>
+    <span class="wa-tip">Chat with us!</span>
+</a>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+    /* PRELOADER */
+    const pre=document.getElementById('preloader');
+    window.addEventListener('load',()=>setTimeout(()=>pre.classList.add('loaded'),1800));
+    setTimeout(()=>pre.classList.add('loaded'),3500);
+
+    /* PARTICLES */
+    const pc=document.getElementById('particles');
+    const cols=['rgba(255,62,62,.3)','rgba(255,149,0,.25)','rgba(0,200,81,.25)','rgba(255,215,0,.2)'];
+    for(let i=0;i<28;i++){const p=document.createElement('div');p.className='particle';const s=Math.random()*4+2;p.style.cssText=`width:${s}px;height:${s}px;background:${cols[i%4]};left:${Math.random()*100}%;animation-duration:${Math.random()*20+15}s;animation-delay:${Math.random()*20}s;box-shadow:0 0 ${s*2}px ${cols[i%4]}`;pc.appendChild(p)}
+
+    /* HERO EMOJIS */
+    const he=document.getElementById('heroEmojis');
+    const emojis=['🛒','🍚','🧴','🧸','🥘','🧹','📦','🫙'];
+    emojis.forEach((e,i)=>{const d=document.createElement('div');d.className='hero-emoji';d.textContent=e;d.style.cssText=`top:${10+Math.random()*70}%;left:${5+Math.random()*85}%;animation-delay:${i*2.5}s;animation-duration:${18+Math.random()*8}s;font-size:${2+Math.random()*2}rem`;he.appendChild(d)});
+
+    /* NAVBAR */
+    const nav=document.getElementById('navbar'),nls=document.querySelectorAll('.nav-link'),secs=document.querySelectorAll('section');
+    const nt=document.getElementById('navToggle'),nlc=document.getElementById('navLinks');
+    function handleScroll(){nav.classList.toggle('scrolled',window.scrollY>50);let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id});nls.forEach(l=>{l.classList.toggle('active',l.dataset.s===cur)})}
+    window.addEventListener('scroll',()=>requestAnimationFrame(handleScroll));handleScroll();
+    nt.addEventListener('click',()=>{nt.classList.toggle('active');nlc.classList.toggle('open')});
+    nls.forEach(l=>l.addEventListener('click',()=>{nt.classList.remove('active');nlc.classList.remove('open')}));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){nt.classList.remove('active');nlc.classList.remove('open')}});
+
+    /* SMOOTH SCROLL */
+    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})}));
+
+    /* SCROLL ANIMATIONS */
+    const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');
+        const bars=e.target.querySelectorAll('.offer-bar-fill,.stat-bar-fill');
+        bars.forEach(b=>setTimeout(()=>b.classList.add('animated'),300));
+        e.target.querySelectorAll('[data-c]').forEach(c=>animCount(c))}})},{rootMargin:'0px 0px -60px 0px',threshold:.1});
+    document.querySelectorAll('.anim').forEach(el=>obs.observe(el));
+    document.querySelectorAll('.stat-card,.offer-card').forEach(el=>obs.observe(el));
+
+    /* COUNTER */
+    function animCount(el){if(el.classList.contains('counted'))return;el.classList.add('counted');const t=parseInt(el.dataset.c),d=2000,st=performance.now();
+    function u(now){const p=Math.min((now-st)/d,1),eased=1-Math.pow(1-p,3);el.textContent=Math.round(t*eased);if(p<1)requestAnimationFrame(u)}requestAnimationFrame(u)}
+
+    /* TESTIMONIALS */
+    const track=document.getElementById('testTrack'),cards=track.querySelectorAll('.test-card'),dots=document.getElementById('testDots');
+    let ci=0,cpv=window.innerWidth<=768?1:window.innerWidth<=1024?2:3,tp=Math.ceil(cards.length/cpv),ai;
+    function mkDots(){dots.innerHTML='';for(let i=0;i<tp;i++){const d=document.createElement('div');d.className='test-dot'+(i===0?' active':'');d.onclick=()=>go(i);dots.appendChild(d)}}
+    function upDots(){dots.querySelectorAll('.test-dot').forEach((d,i)=>d.classList.toggle('active',i===ci))}
+    function go(i){ci=i<0?tp-1:i>=tp?0:i;const w=cards[0].offsetWidth+28;track.style.transform=`translateX(-${ci*cpv*w}px)`;upDots()}
+    document.getElementById('prevBtn').onclick=()=>{go(ci-1);resetAuto()};
+    document.getElementById('nextBtn').onclick=()=>{go(ci+1);resetAuto()};
+    function startAuto(){ai=setInterval(()=>go(ci+1),5000)}function stopAuto(){clearInterval(ai)}function resetAuto(){stopAuto();startAuto()}
+    window.addEventListener('resize',()=>{cpv=window.innerWidth<=768?1:window.innerWidth<=1024?2:3;tp=Math.ceil(cards.length/cpv);mkDots();go(0)});
+    mkDots();startAuto();
+    track.addEventListener('mouseenter',stopAuto);track.addEventListener('mouseleave',startAuto);
+    let tsx=0;track.addEventListener('touchstart',e=>{tsx=e.changedTouches[0].screenX;stopAuto()},{passive:true});
+    track.addEventListener('touchend',e=>{const d=tsx-e.changedTouches[0].screenX;if(Math.abs(d)>50){d>0?go(ci+1):go(ci-1)}startAuto()},{passive:true});
+
+    /* TILT CARDS */
+    function addTilt(sel){document.querySelectorAll(sel).forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;c.style.transform=`perspective(800px) rotateX(${(y-.5)*8}deg) rotateY(${(x-.5)*-8}deg) translateY(-6px)`});c.addEventListener('mouseleave',()=>{c.style.transform=''})})}
+    addTilt('.cat-card');addTilt('.floor-card');addTilt('.offer-card');addTilt('.stat-card');
+
+    /* CONTACT GLOW */
+    document.querySelectorAll('.contact-card').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.background=`radial-gradient(circle at ${e.clientX-r.left}px ${e.clientY-r.top}px,rgba(255,62,62,.06),rgba(26,26,26,.7))`});c.addEventListener('mouseleave',()=>{c.style.background=''})});
+
+    /* HERO PARALLAX */
+    const hero=document.getElementById('hero');
+    hero.addEventListener('mousemove',e=>{const r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    document.querySelectorAll('.hero-shape').forEach((s,i)=>{s.style.transform=`translate(${x*(i+1)*15}px,${y*(i+1)*15}px)`})});
+});
+</script>
+</body>
+</html>
